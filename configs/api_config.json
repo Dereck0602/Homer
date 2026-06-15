@@ -1,0 +1,82 @@
+{
+    "gpt-4o-2024-11-20": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": ""
+    },
+    "gemini-2.5-flash": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "gemini-2.5-pro": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "gemini-3-flash-preview": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "gemini-3.1-flash-lite-preview": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "text-embedding-3-large": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": ""
+    },
+    "qwen3-omni-flash": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "qwen3-omni-flash-2025-12-01": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "qwen3-omni-flash-2025-09-15": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "qwen3-omni-30b-a3b-instruct": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "whatever"
+    },
+    "m3-memory": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "whatever"
+    },
+    "m3-control": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "whatever"
+    },
+    "text-embedding-v4": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "qwen-plus-latest": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "qwen-flash": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "qwen3.5-plus":{
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "DeepSeek-V3.1T":{
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "whatever"
+    },
+    "qwen3-max-2026-01-23":{
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "deepseek-v4-flash":{
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    },
+    "qwen3-coder-480b-a35b-instruct": {
+        "base_url": "YOUR_BASE_URL",
+        "api_key": "YOUR_API_KEY"
+    }
+}

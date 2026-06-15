@@ -1,0 +1,12 @@
+{
+    "max_img_embeddings": 10,
+    "max_audio_embeddings": 20,
+    "img_matching_threshold": 0.3,
+    "audio_matching_threshold": 0.6,
+    "visual_layer": {
+        "enabled": false,
+        "clips_root": "",
+        "keyframe_dir_name": "keyframe_hybridv2",
+        "max_images_per_call": 5
+    }
+}

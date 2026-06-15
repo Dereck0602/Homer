@@ -1,0 +1,112 @@
+# ============================================================
+# LV-Harness task config: Video-MME streaming evaluation
+# ============================================================
+# Usage:
+#   # offline mode (load pre-built memory)
+#   python -m lv_harness run --config configs/tasks/videomme_streaming.yaml
+#
+#   # streaming mode (build memory and answer while watching the video)
+#   python -m lv_harness run --config configs/tasks/videomme_streaming.yaml --streaming
+#
+#   # switch memory strategy
+#   python -m lv_harness run --config configs/tasks/videomme_streaming.yaml --strategy sliding_window
+#
+#   # streaming mode + EventGraph incremental update
+#   python -m lv_harness run --config configs/tasks/videomme_streaming.yaml --streaming --eventgraph_incremental
+# ============================================================
+
+task: videomme_streaming
+description: "Video-MME streaming evaluation task"
+
+# ---- Data layer ----
+data:
+  annotation_file: data/annotations/videomme.json
+  clip_dir_template: "data/video_clips/{video_name}"
+  mem_dir: data/mems
+  temporal_mode: end_of_video    # end_of_video | periodic | event_triggered
+
+# ---- Memory layer ----
+memory:
+  # memory strategy: hierarchical | videograph_only | eventgraph_only | sliding_window | compressed
+  strategy: hierarchical
+  memory_config_path: configs/memory_config.json
+  eventgraph_dir: ""             # EventGraph data directory (must be overridden on the command line)
+  topk: 2
+  videograph: {}
+  snapshot:
+    enabled: false
+    interval: 10
+    max_snapshots: 50
+  # sliding-window strategy parameters (only effective when strategy=sliding_window)
+  window_size: 20
+  # compression strategy parameters (only effective when strategy=compressed)
+  recent_window: 20
+  compress_interval: 10
+  # EventGraph incremental update parameters (only effective in streaming mode --streaming)
+  eventgraph_incremental: false
+  eventgraph_update_interval: 20
+  eventgraph_model: "DeepSeek-V3.1T"
+  # interval for periodically refreshing equivalence relations (refresh face cluster merging every N clips)
+  equivalence_refresh_interval: 5
+  # clip memory generation config (only effective in streaming mode --streaming)
+  ingestion:
+    use_api: true                  # true=API mode (Gemini etc.), false=Qwen local inference
+    api_model: "gemini-2.5-flash"  # multimodal model in API mode
+    embedding_model: "text-embedding-v4"  # text embedding model
+    api_timeout: 120               # API call timeout (seconds)
+    max_retries: 3                 # max retries
+    logging_level: "INFO"          # log level (DETAIL shows face visualization)
+    processing_config_path: ""     # compatibility mode: points to m3-agent's configs/processing_config.json
+
+# ---- Reasoning layer ----
+reasoning:
+  agent: ledger_multi_round      # multi_round_search | ledger_multi_round | direct (reserved)
+  backend: openai                # openai | vllm
+  model: gemini-2.5-flash
+  max_rounds: 5
+  temperature: 0.6
+  max_tokens: 8192
+  api_config_path: configs/api_config.json
+  workers: 4
+  answer_policy: always          # always | confident | deferred
+
+  # ------------------------------------------------------------------
+  # TaskLedger config (only effective when agent == "ledger_multi_round")
+  # Disabling `ledger.enabled` is equivalent to agent == "multi_round_search" (the baseline).
+  # ------------------------------------------------------------------
+  # ledger:
+  #   enabled: true
+  #   planner:
+  #     enabled: true             # when false, use the atomic fallback (a single SubTask = the original question)
+  #     max_subtasks: 5
+  #     min_subtasks: 1
+  #     temperature: 0.2          # a low Planner temperature is more stable
+  #     max_tokens: 4096
+  #     on_failure: "atomic"      # atomic | fail
+  #     skip_decompose_short_chars: 12
+  #   scheduler:
+  #     max_attempts_per_subtask: 3
+  #     early_stop_when_all_resolved: true
+  #   synthesis:
+  #     use_ledger_only: true     # true: synthesis uses the ledger only; false: also attach raw retrieval logs
+
+# ---- Evaluation layer ----
+evaluation:
+  metrics:
+    - accuracy
+    - accuracy_by_category
+    - answer_latency
+  eval_model: gemini-2.5-flash
+  string_match_first: true
+
+# ---- Output ----
+output:
+  dir: data/results
+  format: jsonl
+  save_intermediate: true
+  save_conversations: true
+
+# ---- Self-evolution system (optional) ----
+evolution:
+  enabled: false
+  dir: .lv_harness
