@@ -50,9 +50,6 @@ Task behavior is driven by a YAML file merged on top of `DEFAULT_CONFIG` in `lv_
 # M3-Bench, batch-level self-evolution
 DATASET=robot NUM_QUESTIONS=128 BATCH_SIZE=64 bash run_m3bench_batch.sh
 
-# Streaming mode
-MODE=streaming bash run_m3bench_batch.sh
-
 # Ablation: VideoGraph only (no EventGraph / keyframe / hierarchical retrieval)
 STRATEGY=videograph_only bash run_m3bench_batch.sh
 ```
