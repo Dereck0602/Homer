@@ -1,6 +1,6 @@
 # LV-Harness
 
-**LV-Harness** is a Harness-architecture framework for **streaming long-video reasoning agents**. It drives a time-ordered timeline (per video, then per clip), ingests clip-level memory while "watching", and schedules multi-round retrieval-augmented question answering on top of a hierarchical memory. The framework bundles deterministic guardrails, information-sufficiency signals, context engineering, and an optional self-evolution loop.
+**LV-Harness** is a harness framework for **streaming long-video reasoning agents**. It drives a time-ordered timeline, constructs clip-level memory, and schedules multi-round question answering on top of a hierarchical memory. The framework bundles deterministic guardrails, information-sufficiency signals, context engineering, and an optional self-evolution loop.
 
 ---
 
